@@ -84,6 +84,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                     : 'bg-gray-100 hover:bg-gray-200 border-2 border-gray-300'
                 }`}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={provider.logo} alt={provider.name} className="w-20 h-20 object-contain" />
               </button>
             ))}

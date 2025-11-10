@@ -132,9 +132,10 @@ const AnimatePageContent = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 animate-fade-in">
           <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-md text-center animate-slide-up">
             <div className="mb-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={provider.logo} alt={provider.name} className="w-24 h-24 object-contain mx-auto" />
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">See, it's not that hard!</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">See, it&apos;s not that hard!</h2>
             <p className="text-lg text-gray-600 mb-8">Just type your question and let the AI do the magic ✨</p>
             <p className="text-sm text-gray-500">Redirecting in {redirectCountdown}s...</p>
           </div>
@@ -158,6 +159,7 @@ const AnimatePageContent = () => {
           <div className="space-y-6">
             {/* Provider Header */}
             <div className="flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={provider.logo} alt={provider.name} className="w-24 h-24 object-contain" />
               <div>
                 <p className="text-gray-600 text-lg">Ready to help</p>
