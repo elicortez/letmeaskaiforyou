@@ -167,20 +167,6 @@ const AnimatePageContent = () => {
               </div>
             </div>
 
-            {/* Step 1 Label */}
-            {currentStep === 'typing' && (
-              <div className="text-center mt-4 text-lg font-semibold text-blue-600 animate-pulse">
-                ✏️ Step 1: Type your question...
-              </div>
-            )}
-
-            {/* Step 2 Label */}
-            {currentStep === 'clicking' && (
-              <div className="text-center mt-4 text-lg font-semibold text-green-600 animate-pulse">
-                🖱️ Step 2: Click the search button...
-              </div>
-            )}
-
             {/* Search Button */}
             <button
               disabled={currentStep === 'typing'}
