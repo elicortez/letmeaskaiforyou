@@ -176,7 +176,7 @@ const AnimatePageContent = () => {
                   : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-400/50'
               }`}
             >
-              Search
+              {provider ? `Go to ${provider.name}` : 'Go to AI'}
             </button>
 
             {/* Checkmark Animation */}
