@@ -70,7 +70,7 @@ export const PreviewAnimation: React.FC<PreviewAnimationProps> = ({
 
         {/* Search input simulation */}
         <div className="flex items-center gap-3 p-4 rounded-lg bg-white border-2 border-gray-300">
-          <span className="text-2xl">{provider.icon}</span>
+          <img src={provider.logo} alt={provider.name} className="w-12 h-12 object-contain" />
           <div className="flex-1">
             <div className="text-sm text-gray-600 mb-2">Searching {provider.name}...</div>
             <div className="typing-container">
