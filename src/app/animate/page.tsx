@@ -92,13 +92,13 @@ const AnimatePageContent = () => {
       {/* Step Indicator at Top */}
       <div className="fixed top-0 left-0 right-0 bg-white border-b-2 border-gray-300 py-4 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 flex items-center justify-around">
-          <div className={`flex items-center gap-2 ${currentStep === 'typing' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'typing' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>1</div>
-            <span>Type your prompt</span>
+          <div className={`flex items-center gap-3 ${currentStep === 'typing' ? 'text-blue-600 font-bold animate-strong-pulse' : 'text-gray-500'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${currentStep === 'typing' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>1</div>
+            <span className="text-lg">Type your prompt</span>
           </div>
-          <div className={`flex items-center gap-2 ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
-            <span>{provider ? `Go to ${provider.name}` : 'Go to AI'}</span>
+          <div className={`flex items-center gap-3 ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'text-green-600 font-bold animate-strong-pulse' : 'text-gray-500'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
+            <span className="text-lg">{provider ? `Go to ${provider.name}` : 'Go to AI'}</span>
           </div>
         </div>
       </div>
