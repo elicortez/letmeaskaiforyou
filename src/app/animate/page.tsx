@@ -15,7 +15,7 @@ const AnimatePageContent = () => {
   const [displayedText, setDisplayedText] = useState('');
   const [currentStep, setCurrentStep] = useState<'typing' | 'clicking' | 'redirecting'>('typing');
   const [showRedirect, setShowRedirect] = useState(false);
-  const [redirectCountdown, setRedirectCountdown] = useState(3);
+  const [redirectCountdown, setRedirectCountdown] = useState(2);
 
   // Set provider
   useEffect(() => {
@@ -49,7 +49,7 @@ const AnimatePageContent = () => {
               setTimeout(() => {
                 setCurrentStep('redirecting');
                 setShowRedirect(true);
-                setRedirectCountdown(3);
+                setRedirectCountdown(2);
               }, 1000);
             }, 2000);
           }, 500);
@@ -98,7 +98,7 @@ const AnimatePageContent = () => {
           </div>
           <div className={`flex items-center gap-2 ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
-            <span>Go to the AI</span>
+            <span>{provider ? `Go to ${provider.name}` : 'Go to AI'}</span>
           </div>
         </div>
       </div>
