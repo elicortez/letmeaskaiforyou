@@ -157,14 +157,14 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                   setAnimationComplete(false);
                   setShowEmbedded(false);
                 }}
-                className="flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md"
+                className="flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md text-center"
               >
                 ← New Search
               </button>
 
               <button
                 onClick={() => setShowEmbedded(!showEmbedded)}
-                className={`flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md text-center`}
               >
                 {showEmbedded ? 'Hide Animation' : 'Preview Animation'}
               </button>
@@ -173,7 +173,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 href={fullUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md text-center`}
               >
                 Go to {selectedProvider.name}
               </a>

@@ -94,15 +94,11 @@ const AnimatePageContent = () => {
         <div className="max-w-2xl mx-auto px-4 flex items-center justify-around">
           <div className={`flex items-center gap-2 ${currentStep === 'typing' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'typing' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>1</div>
-            <span>Type Question</span>
+            <span>Type your prompt</span>
           </div>
-          <div className={`flex items-center gap-2 ${currentStep === 'clicking' ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'clicking' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
-            <span>Click Search</span>
-          </div>
-          <div className={`flex items-center gap-2 ${currentStep === 'redirecting' ? 'text-purple-600 font-bold' : 'text-gray-500'}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'redirecting' ? 'bg-purple-600 text-white' : 'bg-gray-300'}`}>3</div>
-            <span>Go to AI</span>
+          <div className={`flex items-center gap-2 ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
+            <span>Go to the AI</span>
           </div>
         </div>
       </div>
@@ -170,7 +166,7 @@ const AnimatePageContent = () => {
             {/* Search Button */}
             <button
               disabled={currentStep === 'typing'}
-              className={`w-full mt-6 py-4 px-6 rounded-lg font-bold text-lg transition-all ${
+              className={`w-full mt-6 py-4 px-6 rounded-lg font-bold text-lg transition-all text-center ${
                 currentStep === 'typing'
                   ? 'bg-gray-400 text-gray-600 cursor-not-allowed opacity-50'
                   : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-400/50'
