@@ -41,8 +41,6 @@ const typingSpeed = 200; // Current default (slower, easier to read)
 3. Verify JavaScript is enabled in browser settings
 4. Try a different browser
 
----
-
 ### 🖱️ Cursor Animation Issues
 
 #### Cursor is not moving smoothly
@@ -77,16 +75,19 @@ const typingSpeed = 200; // Current default (slower, easier to read)
 3. Try the shortened URL instead of the full URL
 4. Verify the AI service is accessible from your region
 
-#### URL contains strange characters
+#### URL contains special characters or spaces
 
-**Problem**: URL shows encoded characters like `%20` instead of spaces.
+**Problem**: URL shows encoded characters that look unusual.
 
-**Solution**: This is normal! URL encoding is required:
-- Spaces become `%20`
-- Commas become `%2C`
-- Quotes become `%22`
-
-The AI services automatically decode these. This is not a bug.
+**Solution**:
+1. URL encoding is required for special characters:
+   - Spaces become `+` or `%20`
+   - Commas become `%2C`
+   - Quotes become `%22`
+   - Question marks become `%3F`
+2. This is normal and expected behavior
+3. The AI services automatically decode these
+4. This is NOT a bug - it's how URLs work
 
 #### Copy to clipboard doesn't work
 
@@ -99,16 +100,6 @@ The AI services automatically decode these. This is not a bug.
 2. Grant permission when prompted
 3. Try right-clicking and selecting "Copy" manually
 4. Verify JavaScript is enabled
-
-#### TinyURL shortening is slow
-
-**Problem**: Shortened URL takes a long time to generate.
-
-**Solution**:
-1. This is normal - TinyURL API sometimes has delays
-2. You can use the full URL while waiting for the short version
-3. Check your internet connection
-4. If persistent, try again in a few moments
 
 ---
 

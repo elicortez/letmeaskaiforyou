@@ -33,24 +33,21 @@ graph TB
     
     subgraph Services["External Services"]
         direction TB
-        ChatGPT["ChatGPT API"]
+        ChatGPT["ChatGPT"]
         Copilot["Bing Chat"]
         Gemini["Google Gemini"]
-        TinyURL["TinyURL API"]
     end
     
     subgraph Deployment["Deployment"]
         direction TB
         Vercel["Vercel Hosting"]
         CDN["Edge CDN"]
-        Analytics["Analytics"]
     end
     
     Client --> NextJS
     NextJS --> Services
     Client --> Deployment
     Vercel --> CDN
-    Analytics -.-> Client
 ```
 
 ### Application Layers
@@ -160,18 +157,11 @@ sequenceDiagram
     Generator-->>UI: Return formatted URL
     deactivate Generator
     
-    UI->>Generator: Call shortenUrl(fullURL)
-    activate Generator
-    Generator->>Services: POST to TinyURL API
-    Services-->>Generator: Return short URL
-    Generator-->>UI: Return short URL
-    deactivate Generator
-    
-    UI->>UI: Update state with URLs
+    UI->>UI: Update state with URL
     UI->>UI: Show animation
     deactivate UI
     
-    UI-->>User: Display URLs & Preview
+    UI-->>User: Display URL & Preview
 ```
 
 ### Animation Sequence
@@ -246,10 +236,9 @@ graph LR
     
     State1 & State2 -->|Used by| URLGen["URL Generation"]
     URLGen -->|Produces| State5["fullUrl"]
-    URLGen -->|Produces| State6["shortUrl"]
     
     State4 -->|Enables| State7["showEmbedded"]
-    State5 & State6 -->|Display in| Results["Results Section"]
+    State5 -->|Display in| Results["Results Section"]
     State7 -->|Controls| Preview["EmbeddedPreview"]
 ```
 
@@ -267,7 +256,6 @@ const [showEmbedded, setShowEmbedded] = useState<boolean>();
 
 // Data State
 const [fullUrl, setFullUrl] = useState<string>();
-const [shortUrl, setShortUrl] = useState<string>();
 
 // UI Feedback State
 const [isCopying, setIsCopying] = useState<boolean>();
@@ -355,7 +343,7 @@ graph LR
     Source -->|npm run build| Build
     Build -->|Compiles to| Output
     Output -->|Deploy to| Deploy
-    Deploy -->|Edge Function| CDN
+    Deploy -->|Edge Caching| CDN
     CDN -->|Serve to| Users
     Users -->|Request| CDN
 ```

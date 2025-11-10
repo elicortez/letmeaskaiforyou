@@ -30,10 +30,10 @@ Perfect for:
 - **Step indicators** - Two-step progress tracker: "Type your prompt" → "Go to the AI"
 - **Smooth transitions** - Polished fade-in and slide-in effects
 
-### 🔗 URL Shortening
-- Automatic URL shortening via TinyURL
-- Copy full or shortened URLs with one click
+### 🔗 Shareable Links
+- Copy full URLs with one click
 - Shareable links that auto-play animations
+- Direct links to AI services with pre-filled prompts
 
 ### 👀 Interactive Previews
 - iframe preview showing exactly what users will see
@@ -226,11 +226,13 @@ https://letmeaskaiforyou.com/?q=your+question&ai=chatgpt
 Parameters:
 - `q` - Your question (URL encoded)
 - `ai` - AI provider (`chatgpt`, `copilot`, `gemini`)
+- `iframe` - Set to `true` to prevent automatic redirect (for previews)
 
 When someone opens this link:
 - ✅ The animation plays automatically
 - ✅ The correct AI provider is pre-selected
 - ✅ They can click to go directly to the AI service
+- ✅ Step indicators show the typing and clicking progress
 
 ### 🎨 Customization
 
@@ -323,17 +325,6 @@ interface AIProvider {
 }
 ```
 
-### `shortenUrl(longUrl: string): Promise<string>`
-
-Shortens a URL using TinyURL API.
-
-```typescript
-import { shortenUrl } from '@/utils/ai';
-
-const shortened = await shortenUrl('https://chatgpt.com/?prompt=...');
-// Returns: "https://tinyurl.com/abc123"
-```
-
 ### `copyToClipboard(text: string): Promise<boolean>`
 
 Copies text to user's clipboard.
@@ -343,6 +334,16 @@ import { copyToClipboard } from '@/utils/ai';
 
 const success = await copyToClipboard(url);
 // Returns: true if successful
+```
+
+### `generateUrl(query: string): string`
+
+Generates URL for a specific AI provider.
+
+```typescript
+const provider = AI_PROVIDERS.chatgpt;
+const url = provider.generateUrl('How do I learn Python?');
+// Returns: "https://chatgpt.com/?q=How+do+I+learn+Python%3F"
 ```
 
 ## 🐛 Troubleshooting
@@ -377,16 +378,16 @@ We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guideline
 
 ## 📋 Roadmap
 
-- [ ] Analytics dashboard to track link usage
 - [ ] Additional AI providers (Claude, Perplexity, etc.)
 - [ ] Browser history for generated links
 - [ ] Share directly to social media
-- [ ] Custom URL slugs/aliases
 - [ ] Dark/Light theme toggle
 - [ ] API endpoint for programmatic link generation
 - [ ] Browser extension for quick link generation
 - [ ] Multi-language support
-- [ ] Customizable animation speed settings
+- [ ] Customizable animation speed in UI
+- [ ] Analytics dashboard to track link usage
+- [ ] Custom URL slugs/aliases
 
 ## 📄 License
 
@@ -403,7 +404,6 @@ This project is open source and available under the **MIT License** - see [LICEN
 
 - **Issues** - Report bugs on [GitHub Issues](https://github.com/elicortez/letmeaskaiforyou/issues)
 - **Discussions** - Join our [GitHub Discussions](https://github.com/elicortez/letmeaskaiforyou/discussions)
-- **Twitter** - [@elicortez](https://twitter.com/elicortez)
 
 ## 🌟 Star History
 
