@@ -130,10 +130,10 @@ export const HomeContent: React.FC<HomeContentProps> = ({
         {showPreview && animationComplete && (
           <div className="space-y-4 animate-slide-in">
             {/* Share URL - Now First */}
-            <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
-              <div className="text-sm text-gray-600 mb-2">Shareable Link (with animation):</div>
+            <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 border-3 border-purple-400 shadow-lg">
+              <div className="text-sm font-semibold text-purple-900 mb-3">Shareable Link (with animation):</div>
               <div className="flex items-center gap-2">
-                <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-purple-600 font-mono break-all">
+                <code className="flex-1 text-sm bg-gray-900 p-4 rounded-lg border-2 border-purple-400 overflow-x-auto text-white font-mono break-all text-base">
                   {`${typeof window !== 'undefined' ? window.location.origin : ''}/animate?q=${encodeURIComponent(query)}&ai=${selectedProvider.id}`}
                 </code>
                 <button
@@ -147,7 +147,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                   {copiedMessage === 'Full URL copied!' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
-              <p className="text-xs text-gray-600 mt-2">Share this link to show the animation to others!</p>
+              <p className="text-xs text-purple-800 mt-3 font-medium">📤 Share this link to show the animation to others!</p>
             </div>
 
             {/* Action Buttons */}
@@ -159,14 +159,14 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                   setAnimationComplete(false);
                   setShowEmbedded(false);
                 }}
-                className="flex-1 py-3 px-6 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold transition-all border border-gray-400"
+                className="flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md"
               >
-                New Search
+                ← New Search
               </button>
 
               <button
                 onClick={() => setShowEmbedded(!showEmbedded)}
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold transition-all`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold transition-all border-2 border-opacity-50`}
               >
                 {showEmbedded ? 'Hide' : 'Show'} Preview
               </button>
@@ -175,9 +175,9 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 href={fullUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold text-center transition-all`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold text-center transition-all border-2 border-opacity-50`}
               >
-                Go to {selectedProvider.name.split(' ')[0]}
+                Go to {selectedProvider.name.split(' ')[0]} →
               </a>
             </div>
 
