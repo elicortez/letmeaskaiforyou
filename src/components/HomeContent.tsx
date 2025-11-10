@@ -164,9 +164,8 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
               <button
                 onClick={() => setShowEmbedded(!showEmbedded)}
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg flex items-center justify-center gap-2 text-black font-bold text-lg transition-all border-2 border-black shadow-md`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold transition-all border-3 border-gray-500 shadow-md`}
               >
-                <img src={selectedProvider.logo} alt={selectedProvider.name} className="w-6 h-6 object-contain" />
                 {showEmbedded ? 'Hide Animation' : 'Preview Animation'}
               </button>
 
