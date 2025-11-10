@@ -15,6 +15,8 @@ const AnimatePageContent = () => {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [showRedirect, setShowRedirect] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(3);
+  const [showMouse, setShowMouse] = useState(true);
+  const [mousePhase, setMousePhase] = useState<'to-input' | 'to-button'>('to-input');
 
   // Set provider
   useEffect(() => {
@@ -37,11 +39,14 @@ const AnimatePageContent = () => {
         index++;
       } else {
         clearInterval(typingInterval);
+        // Switch mouse to button after typing completes
+        setMousePhase('to-button');
         // Wait 3 seconds after finishing typing before showing redirect
         setTimeout(() => {
           setAnimationComplete(true);
           setTimeout(() => {
             setShowRedirect(true);
+            setShowMouse(false);
           }, 3000);
         }, 300);
       }
@@ -77,6 +82,15 @@ const AnimatePageContent = () => {
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      {/* Mouse Cursor Animation */}
+      {showMouse && !showRedirect && (
+        <div className={`mouse-cursor ${mousePhase === 'to-input' ? 'animate-mouse-to-input' : 'animate-mouse-to-button'}`}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gray-900">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4l16 16M20 4l-16 16" />
+          </svg>
+        </div>
+      )}
+
       {/* Top Redirect Banner */}
       {showRedirect && (
         <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 shadow-lg animate-slide-in">

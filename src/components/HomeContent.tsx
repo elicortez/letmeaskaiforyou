@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AI_PROVIDERS, shortenUrl, copyToClipboard } from '@/utils/ai';
+import { AI_PROVIDERS, copyToClipboard } from '@/utils/ai';
 import { PreviewAnimation } from '@/components/PreviewAnimation';
 import { EmbeddedPreview } from '@/components/EmbeddedPreview';
 import type { AIProvider } from '@/utils/ai';
@@ -21,7 +21,6 @@ export const HomeContent: React.FC<HomeContentProps> = ({
   const [query, setQuery] = useState(initialQuery || '');
   const [showPreview, setShowPreview] = useState(autoStart && !!initialQuery);
   const [animationComplete, setAnimationComplete] = useState(false);
-  const [shortUrl, setShortUrl] = useState('');
   const [isCopying, setIsCopying] = useState(false);
   const [fullUrl, setFullUrl] = useState('');
   const [copiedMessage, setCopiedMessage] = useState('');
@@ -32,7 +31,6 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
     setShowPreview(true);
     setAnimationComplete(false);
-    setShortUrl('');
     setFullUrl('');
   };
 
@@ -41,10 +39,6 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
     const fullUrlGenerated = selectedProvider.generateUrl(query);
     setFullUrl(fullUrlGenerated);
-
-    // Shorten the URL
-    const shortened = await shortenUrl(fullUrlGenerated);
-    setShortUrl(shortened);
   };
 
   const handleCopy = async (text: string, type: 'full' | 'short') => {
@@ -87,7 +81,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 onClick={() => setSelectedProvider(provider)}
                 className={`py-4 px-4 rounded-lg font-semibold transition-all transform hover:scale-105 flex flex-col items-center gap-2 ${
                   selectedProvider.id === provider.id
-                    ? `bg-gradient-to-r ${provider.color} text-white shadow-lg`
+                    ? `bg-gradient-to-r ${provider.color} text-black shadow-lg`
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
                 }`}
               >
@@ -135,43 +129,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
         {/* Result Section */}
         {showPreview && animationComplete && (
           <div className="space-y-4 animate-slide-in">
-            {/* Full URL */}
-            <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
-              <div className="text-sm text-gray-600 mb-2">Full URL:</div>
-              <div className="flex items-center gap-2">
-                <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-blue-600 font-mono">
-                  {fullUrl}
-                </code>
-                <button
-                  onClick={() => handleCopy(fullUrl, 'full')}
-                  disabled={isCopying}
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm font-semibold whitespace-nowrap transition-all"
-                >
-                  {copiedMessage === 'Full URL copied!' ? '✓ Copied' : 'Copy'}
-                </button>
-              </div>
-            </div>
-
-            {/* Short URL */}
-            {shortUrl && (
-              <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
-                <div className="text-sm text-gray-600 mb-2">Short URL:</div>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-green-600 font-mono">
-                    {shortUrl}
-                  </code>
-                  <button
-                    onClick={() => handleCopy(shortUrl, 'short')}
-                    disabled={isCopying}
-                    className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded text-sm font-semibold whitespace-nowrap transition-all"
-                  >
-                    {copiedMessage === 'Short URL copied!' ? '✓ Copied' : 'Copy'}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Share URL */}
+            {/* Share URL - Now First */}
             <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
               <div className="text-sm text-gray-600 mb-2">Shareable Link (with animation):</div>
               <div className="flex items-center gap-2">

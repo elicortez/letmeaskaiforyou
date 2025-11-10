@@ -61,3 +61,58 @@ code {
     border-color: transparent;
   }
 }
+
+@keyframes mouse-move-to-input {
+  0% {
+    left: 50%;
+    top: 10%;
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 35%;
+    top: 48%;
+    opacity: 1;
+  }
+}
+
+@keyframes mouse-move-to-button {
+  0% {
+    left: 35%;
+    top: 48%;
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    left: 50%;
+    top: 75%;
+    opacity: 1;
+  }
+}
+
+.mouse-cursor {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.mouse-cursor svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.animate-mouse-to-input {
+  animation: mouse-move-to-input 2s ease-in-out forwards;
+}
+
+.animate-mouse-to-button {
+  animation: mouse-move-to-button 2s ease-in-out forwards;
+  animation-delay: 1s;
+}
