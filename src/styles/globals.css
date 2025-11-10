@@ -64,40 +64,37 @@ code {
 
 @keyframes mouse-move-to-input {
   0% {
-    left: 50%;
-    top: 10%;
-    opacity: 1;
-  }
-  50% {
+    left: 10%;
+    top: 5%;
     opacity: 1;
   }
   100% {
     left: 50%;
-    top: 35%;
+    top: 55%;
     opacity: 1;
+    transform: translateX(-50%);
   }
 }
 
 @keyframes mouse-move-to-button {
   0% {
     left: 50%;
-    top: 35%;
+    top: 55%;
     opacity: 1;
-  }
-  50% {
-    opacity: 1;
+    transform: translateX(-50%);
   }
   100% {
     left: 50%;
-    top: 52%;
+    top: 88%;
     opacity: 1;
+    transform: translateX(-50%);
   }
 }
 
 .mouse-cursor {
   position: fixed;
-  width: 20px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   pointer-events: none;
   z-index: 9999;
   cursor: pointer;
@@ -108,10 +105,10 @@ code {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M3 3l8.5 14L12 8l5 8h2L3 3z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000000'%3E%3Cpath d='M3 3l8.5 14L12 8l5 8h2L3 3z'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
-  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+  filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.8));
 }
 
 .animate-mouse-to-input {
@@ -120,5 +117,5 @@ code {
 
 .animate-mouse-to-button {
   animation: mouse-move-to-button 2s ease-in-out forwards;
-  animation-delay: 1s;
+  animation-delay: 0s;
 }

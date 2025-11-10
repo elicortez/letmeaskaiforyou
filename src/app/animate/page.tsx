@@ -14,8 +14,6 @@ const AnimatePageContent = () => {
   const [provider, setProvider] = useState<AIProvider | null>(null);
   const [displayedText, setDisplayedText] = useState('');
   const [currentStep, setCurrentStep] = useState<'typing' | 'clicking' | 'redirecting'>('typing');
-  const [showMouse, setShowMouse] = useState(true);
-  const [mousePhase, setMousePhase] = useState<'to-input' | 'to-button'>('to-input');
   const [showRedirect, setShowRedirect] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(3);
 
@@ -31,34 +29,37 @@ const AnimatePageContent = () => {
   useEffect(() => {
     if (!query || !provider) return;
 
-    let index = 0;
-    const typingSpeed = 120;
+    // Step 0: Wait for cursor to move to input (2 seconds for animation)
+    const cursorMoveTimer = setTimeout(() => {
+      let index = 0;
+      const typingSpeed = 200;
 
-    const typingInterval = setInterval(() => {
-      if (index <= query.length) {
-        setDisplayedText(query.substring(0, index));
-        index++;
-      } else {
-        clearInterval(typingInterval);
-        // Move to clicking step
-        setTimeout(() => {
-          setCurrentStep('clicking');
-          setMousePhase('to-button');
-          // Wait 2 seconds for mouse to move to button
+      const typingInterval = setInterval(() => {
+        if (index <= query.length) {
+          setDisplayedText(query.substring(0, index));
+          index++;
+        } else {
+          clearInterval(typingInterval);
+          // Move to clicking step (cursor moves to button)
           setTimeout(() => {
-            // Wait another 1 second, then redirect
+            setCurrentStep('clicking');
+            // Wait 2 seconds for mouse to move to button
             setTimeout(() => {
-              setCurrentStep('redirecting');
-              setShowRedirect(true);
-              setShowMouse(false);
-              setRedirectCountdown(3);
-            }, 1000);
-          }, 2000);
-        }, 500);
-      }
-    }, typingSpeed);
+              // Wait another 1 second, then redirect
+              setTimeout(() => {
+                setCurrentStep('redirecting');
+                setShowRedirect(true);
+                setRedirectCountdown(3);
+              }, 1000);
+            }, 2000);
+          }, 500);
+        }
+      }, typingSpeed);
 
-    return () => clearInterval(typingInterval);
+      return () => clearInterval(typingInterval);
+    }, 2000); // Wait for cursor to reach input field
+
+    return () => clearTimeout(cursorMoveTimer);
   }, [query, provider]);
 
   // Redirect countdown
@@ -87,10 +88,31 @@ const AnimatePageContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+      {/* Step Indicator at Top */}
+      <div className="fixed top-0 left-0 right-0 bg-white border-b-2 border-gray-300 py-4 shadow-sm">
+        <div className="max-w-2xl mx-auto px-4 flex items-center justify-around">
+          <div className={`flex items-center gap-2 ${currentStep === 'typing' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'typing' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>1</div>
+            <span>Type Question</span>
+          </div>
+          <div className={`flex items-center gap-2 ${currentStep === 'clicking' ? 'text-green-600 font-bold' : 'text-gray-500'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'clicking' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
+            <span>Click Search</span>
+          </div>
+          <div className={`flex items-center gap-2 ${currentStep === 'redirecting' ? 'text-purple-600 font-bold' : 'text-gray-500'}`}>
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'redirecting' ? 'bg-purple-600 text-white' : 'bg-gray-300'}`}>3</div>
+            <span>Go to AI</span>
+          </div>
+        </div>
+      </div>
+
       {/* Mouse Cursor Animation */}
-      {showMouse && !showRedirect && (
-        <div className={`mouse-cursor ${mousePhase === 'to-input' ? 'animate-mouse-to-input' : 'animate-mouse-to-button'}`} />
+      {currentStep === 'typing' && (
+        <div className="mouse-cursor animate-mouse-to-input" />
+      )}
+      {currentStep === 'clicking' && (
+        <div className="mouse-cursor animate-mouse-to-button" />
       )}
 
       {/* Top Redirect Banner */}
@@ -110,7 +132,7 @@ const AnimatePageContent = () => {
         </div>
       )}
 
-      <div className={`w-full max-w-2xl ${showRedirect ? 'mt-32' : ''}`}>
+      <div className={`w-full max-w-2xl ${showRedirect ? 'mt-32' : 'mt-24'}`}>
         {/* Main Animation Container */}
         <div className="mb-6 p-6 rounded-xl bg-gray-50 border-2 border-gray-300 shadow-lg">
           {/* Browser URL bar */}
