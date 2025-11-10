@@ -6,6 +6,7 @@ export interface AIProvider {
   id: 'chatgpt' | 'copilot' | 'gemini';
   name: string;
   icon: string;
+  logo: string;
   color: string;
   headerBg: string;
   bubbleColor: string;
@@ -17,6 +18,7 @@ export const AI_PROVIDERS: Record<string, AIProvider> = {
     id: 'chatgpt',
     name: 'ChatGPT',
     icon: '🤖',
+    logo: '/logos/chatgpt.png',
     color: 'from-gray-700 to-gray-900',
     headerBg: 'bg-gradient-to-r from-gray-800 to-gray-900',
     bubbleColor: 'bg-gray-600',
@@ -29,6 +31,7 @@ export const AI_PROVIDERS: Record<string, AIProvider> = {
     id: 'copilot',
     name: 'Microsoft Copilot',
     icon: '✨',
+    logo: '/logos/copilot.png',
     color: 'from-blue-500 to-cyan-500',
     headerBg: 'bg-gradient-to-r from-blue-600 to-cyan-600',
     bubbleColor: 'bg-blue-400',
@@ -40,6 +43,7 @@ export const AI_PROVIDERS: Record<string, AIProvider> = {
     id: 'gemini',
     name: 'Google Gemini',
     icon: '🎨',
+    logo: '/logos/gemini.png',
     color: 'from-purple-400 to-pink-600',
     headerBg: 'bg-gradient-to-r from-purple-600 to-pink-600',
     bubbleColor: 'bg-purple-400',

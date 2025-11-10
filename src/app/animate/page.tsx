@@ -12,11 +12,11 @@ const AnimatePageContent = () => {
   
   const [provider, setProvider] = useState<AIProvider | null>(null);
   const [displayedText, setDisplayedText] = useState('');
-  const [animationComplete, setAnimationComplete] = useState(false);
-  const [showRedirect, setShowRedirect] = useState(false);
-  const [redirectCountdown, setRedirectCountdown] = useState(3);
+  const [currentStep, setCurrentStep] = useState<'typing' | 'clicking' | 'redirecting'>('typing');
   const [showMouse, setShowMouse] = useState(true);
   const [mousePhase, setMousePhase] = useState<'to-input' | 'to-button'>('to-input');
+  const [showRedirect, setShowRedirect] = useState(false);
+  const [redirectCountdown, setRedirectCountdown] = useState(3);
 
   // Set provider
   useEffect(() => {
@@ -26,7 +26,7 @@ const AnimatePageContent = () => {
     setProvider(foundProvider);
   }, [providerId]);
 
-  // Typing animation
+  // Typing animation with step progression
   useEffect(() => {
     if (!query || !provider) return;
 
@@ -39,16 +39,21 @@ const AnimatePageContent = () => {
         index++;
       } else {
         clearInterval(typingInterval);
-        // Switch mouse to button after typing completes
-        setMousePhase('to-button');
-        // Wait 3 seconds after finishing typing before showing redirect
+        // Move to clicking step
         setTimeout(() => {
-          setAnimationComplete(true);
+          setCurrentStep('clicking');
+          setMousePhase('to-button');
+          // Wait 2 seconds for mouse to move to button
           setTimeout(() => {
-            setShowRedirect(true);
-            setShowMouse(false);
-          }, 3000);
-        }, 300);
+            // Wait another 1 second, then redirect
+            setTimeout(() => {
+              setCurrentStep('redirecting');
+              setShowRedirect(true);
+              setShowMouse(false);
+              setRedirectCountdown(3);
+            }, 1000);
+          }, 2000);
+        }, 500);
       }
     }, typingSpeed);
 
@@ -84,11 +89,7 @@ const AnimatePageContent = () => {
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       {/* Mouse Cursor Animation */}
       {showMouse && !showRedirect && (
-        <div className={`mouse-cursor ${mousePhase === 'to-input' ? 'animate-mouse-to-input' : 'animate-mouse-to-button'}`}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="text-gray-900">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4l16 16M20 4l-16 16" />
-          </svg>
-        </div>
+        <div className={`mouse-cursor ${mousePhase === 'to-input' ? 'animate-mouse-to-input' : 'animate-mouse-to-button'}`} />
       )}
 
       {/* Top Redirect Banner */}
@@ -103,7 +104,7 @@ const AnimatePageContent = () => {
               </div>
               <span className="font-semibold">Redirecting in {redirectCountdown}s...</span>
             </div>
-            <span className="text-sm opacity-90">🚀 Going to {provider.name}</span>
+            <img src={provider.logo} alt={provider.name} className="h-8 w-8 object-contain" />
           </div>
         </div>
       )}
@@ -125,10 +126,9 @@ const AnimatePageContent = () => {
           <div className="space-y-6">
             {/* Provider Header */}
             <div className="flex items-center gap-4">
-              <span className="text-5xl">{provider.icon}</span>
+              <img src={provider.logo} alt={provider.name} className="w-24 h-24 object-contain" />
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">{provider.name}</h1>
-                <p className="text-gray-600 mt-1">Ready to help</p>
+                <p className="text-gray-600 text-lg">Ready to help</p>
               </div>
             </div>
 
@@ -137,15 +137,41 @@ const AnimatePageContent = () => {
               <div className="flex-1">
                 <div className="text-2xl font-bold text-gray-900 leading-tight">
                   <span>{displayedText}</span>
-                  {!animationComplete && (
+                  {currentStep === 'typing' && (
                     <span className="animate-pulse text-blue-500">|</span>
                   )}
                 </div>
               </div>
             </div>
 
+            {/* Step 1 Label */}
+            {currentStep === 'typing' && (
+              <div className="text-center mt-4 text-lg font-semibold text-blue-600 animate-pulse">
+                ✏️ Step 1: Type your question...
+              </div>
+            )}
+
+            {/* Step 2 Label */}
+            {currentStep === 'clicking' && (
+              <div className="text-center mt-4 text-lg font-semibold text-green-600 animate-pulse">
+                🖱️ Step 2: Click the search button...
+              </div>
+            )}
+
+            {/* Search Button */}
+            <button
+              disabled={currentStep === 'typing'}
+              className={`w-full mt-6 py-4 px-6 rounded-lg font-bold text-lg transition-all ${
+                currentStep === 'typing'
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed opacity-50'
+                  : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:shadow-lg hover:shadow-blue-400/50'
+              }`}
+            >
+              Search
+            </button>
+
             {/* Checkmark Animation */}
-            {animationComplete && (
+            {currentStep === 'clicking' && (
               <div className="mt-8 flex items-center justify-center">
                 <div className="animate-bounce">
                   <svg
@@ -172,7 +198,7 @@ const AnimatePageContent = () => {
           <div className="text-center animate-slide-in">
             <div className="mb-4 p-6 rounded-xl bg-blue-50 border-2 border-blue-300 shadow-lg">
               <h2 className="text-2xl font-bold text-blue-900 mb-2">
-                Ready! 🚀
+                🚀 Step 3: Redirecting...
               </h2>
               <p className="text-blue-700 mb-4">
                 Redirecting to {provider.name}...
@@ -193,8 +219,9 @@ const AnimatePageContent = () => {
                 const url = provider.generateUrl(query);
                 window.location.href = url;
               }}
-              className={`w-full py-4 px-6 rounded-xl bg-gradient-to-r ${provider.color} text-white font-bold text-lg hover:shadow-lg transition-all transform hover:scale-105`}
+              className={`w-full py-4 px-6 rounded-xl bg-gradient-to-r ${provider.color} text-white font-bold text-lg hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3`}
             >
+              <img src={provider.logo} alt={provider.name} className="w-8 h-8 object-contain" />
               Click here if not redirected
             </button>
           </div>
