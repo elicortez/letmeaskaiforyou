@@ -166,7 +166,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
               <button
                 onClick={() => setShowEmbedded(!showEmbedded)}
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold transition-all border-2 border-opacity-50`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-bold text-lg transition-all border-2 border-white shadow-md`}
               >
                 {showEmbedded ? 'Hide' : 'Show'} Preview
               </button>
@@ -175,7 +175,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 href={fullUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold text-center transition-all border-2 border-opacity-50`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-bold text-lg text-center transition-all border-2 border-white shadow-md`}
               >
                 Go to {selectedProvider.name.split(' ')[0]} →
               </a>
