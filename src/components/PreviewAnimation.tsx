@@ -58,9 +58,9 @@ export const PreviewAnimation: React.FC<PreviewAnimationProps> = ({
 
   return (
     <div className="w-full max-w-2xl mx-auto animate-slide-in">
-      <div className="mb-6 p-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
+      <div className="mb-6 p-4 rounded-lg bg-gray-100 border-2 border-gray-300">
         {/* Browser URL bar simulation */}
-        <div className="mb-4 p-3 rounded bg-slate-800 text-sm text-slate-400 font-mono">
+        <div className="mb-4 p-3 rounded bg-gray-200 text-sm text-gray-700 font-mono border border-gray-400">
           {provider.id === 'chatgpt'
             ? `chatgpt.com/?prompt=${encodeURIComponent(query.substring(0, displayedText.length))}`
             : provider.id === 'copilot'
@@ -70,16 +70,16 @@ export const PreviewAnimation: React.FC<PreviewAnimationProps> = ({
 
         {/* Search input simulation */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-slate-600 bg-opacity-30">
+          <div className="flex items-center gap-3 p-4 rounded-lg bg-white border-2 border-gray-300">
             <span className="text-2xl">{provider.icon}</span>
             <div className="flex-1">
-              <div className="text-sm text-slate-400 mb-2">Searching {provider.name}...</div>
+              <div className="text-sm text-gray-600 mb-2">Searching {provider.name}...</div>
               <div className="typing-container">
-                <span className="text-lg font-semibold text-white">
+                <span className="text-lg font-semibold text-gray-900">
                   {displayedText}
                 </span>
                 {cursorVisible && (
-                  <span className="animate-pulse border-r-2 border-blue-400 ml-1">
+                  <span className="animate-pulse border-r-2 border-blue-500 ml-1">
                     &nbsp;
                   </span>
                 )}
@@ -90,20 +90,23 @@ export const PreviewAnimation: React.FC<PreviewAnimationProps> = ({
           {/* Simulated search results preview */}
           {displayedText.length > query.length * 0.5 && (
             <div className="animate-fade-in space-y-3 mt-4">
-              <div className="p-3 rounded bg-slate-600 bg-opacity-20 border-l-2 border-blue-400">
-                <div className="text-sm text-slate-300 truncate">
+              <div className="p-3 rounded bg-white border-l-4 border-blue-500 shadow-sm">
+                <div className="text-sm text-gray-800 truncate font-semibold">
                   First result for: &quot;{query}&quot;
                 </div>
+                <div className="text-xs text-gray-600 mt-1">relevance.example.com</div>
               </div>
-              <div className="p-3 rounded bg-slate-600 bg-opacity-20">
-                <div className="text-sm text-slate-300 truncate">
+              <div className="p-3 rounded bg-white border-l-4 border-gray-300 shadow-sm">
+                <div className="text-sm text-gray-800 truncate font-semibold">
                   Second result...
                 </div>
+                <div className="text-xs text-gray-600 mt-1">result.example.com</div>
               </div>
-              <div className="p-3 rounded bg-slate-600 bg-opacity-20">
-                <div className="text-sm text-slate-300 truncate">
+              <div className="p-3 rounded bg-white border-l-4 border-gray-300 shadow-sm">
+                <div className="text-sm text-gray-800 truncate font-semibold">
                   Third result...
                 </div>
+                <div className="text-xs text-gray-600 mt-1">information.example.com</div>
               </div>
             </div>
           )}

@@ -66,14 +66,14 @@ export const HomeContent: React.FC<HomeContentProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-2xl space-y-8">
         {/* Header */}
         <div className="text-center space-y-2 mb-12">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-bold text-gray-900">
             Ask AI For You
           </h1>
-          <p className="text-slate-400 text-lg">
+          <p className="text-gray-600 text-lg">
             Generate links to ask ChatGPT, Copilot, or Gemini anything
           </p>
         </div>
@@ -88,7 +88,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 className={`py-4 px-4 rounded-lg font-semibold transition-all transform hover:scale-105 flex flex-col items-center gap-2 ${
                   selectedProvider.id === provider.id
                     ? `bg-gradient-to-r ${provider.color} text-white shadow-lg`
-                    : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
                 }`}
               >
                 <span className="text-3xl">{provider.icon}</span>
@@ -108,14 +108,14 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask me anything..."
-                className="w-full px-6 py-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-lg"
+                className="w-full px-6 py-4 rounded-lg bg-white border-2 border-gray-300 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg transition-all"
               />
             </div>
 
             <button
               onClick={handleSearch}
               disabled={!query.trim()}
-              className="w-full py-4 px-6 rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
+              className="w-full py-4 px-6 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-lg hover:shadow-lg hover:shadow-blue-400/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-105"
             >
               Generate Link
             </button>
@@ -136,16 +136,16 @@ export const HomeContent: React.FC<HomeContentProps> = ({
         {showPreview && animationComplete && (
           <div className="space-y-4 animate-slide-in">
             {/* Full URL */}
-            <div className="p-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
-              <div className="text-sm text-slate-400 mb-2">Full URL:</div>
+            <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
+              <div className="text-sm text-gray-600 mb-2">Full URL:</div>
               <div className="flex items-center gap-2">
-                <code className="flex-1 text-sm bg-slate-800 p-3 rounded overflow-x-auto text-blue-300 font-mono">
+                <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-blue-600 font-mono">
                   {fullUrl}
                 </code>
                 <button
                   onClick={() => handleCopy(fullUrl, 'full')}
                   disabled={isCopying}
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded text-sm font-semibold whitespace-nowrap transition-all"
+                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm font-semibold whitespace-nowrap transition-all"
                 >
                   {copiedMessage === 'Full URL copied!' ? '✓ Copied' : 'Copy'}
                 </button>
@@ -154,16 +154,16 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
             {/* Short URL */}
             {shortUrl && (
-              <div className="p-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
-                <div className="text-sm text-slate-400 mb-2">Short URL:</div>
+              <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
+                <div className="text-sm text-gray-600 mb-2">Short URL:</div>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 text-sm bg-slate-800 p-3 rounded overflow-x-auto text-green-300 font-mono">
+                  <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-green-600 font-mono">
                     {shortUrl}
                   </code>
                   <button
                     onClick={() => handleCopy(shortUrl, 'short')}
                     disabled={isCopying}
-                    className="px-4 py-2 bg-green-500 hover:bg-green-600 rounded text-sm font-semibold whitespace-nowrap transition-all"
+                    className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded text-sm font-semibold whitespace-nowrap transition-all"
                   >
                     {copiedMessage === 'Short URL copied!' ? '✓ Copied' : 'Copy'}
                   </button>
@@ -172,24 +172,24 @@ export const HomeContent: React.FC<HomeContentProps> = ({
             )}
 
             {/* Share URL */}
-            <div className="p-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
-              <div className="text-sm text-slate-400 mb-2">Shareable Link (with animation):</div>
+            <div className="p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
+              <div className="text-sm text-gray-600 mb-2">Shareable Link (with animation):</div>
               <div className="flex items-center gap-2">
-                <code className="flex-1 text-sm bg-slate-800 p-3 rounded overflow-x-auto text-purple-300 font-mono break-all">
-                  {`${typeof window !== 'undefined' ? window.location.origin : ''}/? q=${encodeURIComponent(query)}&ai=${selectedProvider.id}`}
+                <code className="flex-1 text-sm bg-white p-3 rounded border border-gray-300 overflow-x-auto text-purple-600 font-mono break-all">
+                  {`${typeof window !== 'undefined' ? window.location.origin : ''}/animate?q=${encodeURIComponent(query)}&ai=${selectedProvider.id}`}
                 </code>
                 <button
                   onClick={() => {
-                    const shareUrl = `?q=${encodeURIComponent(query)}&ai=${selectedProvider.id}`;
+                    const shareUrl = `/animate?q=${encodeURIComponent(query)}&ai=${selectedProvider.id}`;
                     handleCopy(`${typeof window !== 'undefined' ? window.location.origin : ''}${shareUrl}`, 'full');
                   }}
                   disabled={isCopying}
-                  className="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded text-sm font-semibold whitespace-nowrap transition-all"
+                  className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded text-sm font-semibold whitespace-nowrap transition-all"
                 >
                   {copiedMessage === 'Full URL copied!' ? '✓ Copied' : 'Copy'}
                 </button>
               </div>
-              <p className="text-xs text-slate-400 mt-2">Share this link to show the animation to others!</p>
+              <p className="text-xs text-gray-600 mt-2">Share this link to show the animation to others!</p>
             </div>
 
             {/* Action Buttons */}
@@ -201,14 +201,14 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                   setAnimationComplete(false);
                   setShowEmbedded(false);
                 }}
-                className="flex-1 py-3 px-6 rounded-lg bg-slate-700 hover:bg-slate-600 font-semibold transition-all"
+                className="flex-1 py-3 px-6 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold transition-all border border-gray-400"
               >
                 New Search
               </button>
 
               <button
                 onClick={() => setShowEmbedded(!showEmbedded)}
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg font-semibold transition-all`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold transition-all`}
               >
                 {showEmbedded ? 'Hide' : 'Show'} Preview
               </button>
@@ -217,7 +217,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 href={fullUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg font-semibold text-center transition-all`}
+                className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg text-white font-semibold text-center transition-all`}
               >
                 Go to {selectedProvider.name.split(' ')[0]}
               </a>
@@ -234,12 +234,12 @@ export const HomeContent: React.FC<HomeContentProps> = ({
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-4 right-4 text-slate-500 text-sm">
+      <footer className="absolute bottom-4 right-4 text-gray-500 text-sm">
         <a
           href="https://github.com/elicortez/letmeaskaiforyou"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-slate-300 transition-colors"
+          className="hover:text-gray-700 transition-colors"
         >
           GitHub
         </a>

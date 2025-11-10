@@ -20,15 +20,15 @@ export const EmbeddedPreview: React.FC<EmbeddedPreviewProps> = ({
 
   return (
     <div className="w-full mt-8 animate-slide-in">
-      <div className="rounded-lg overflow-hidden bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
-        <div className="px-4 py-3 bg-slate-800 border-b border-slate-600">
-          <p className="text-sm text-slate-300">
+      <div className="rounded-lg overflow-hidden bg-white border-2 border-gray-300 shadow-lg">
+        <div className="px-4 py-3 bg-gray-100 border-b-2 border-gray-300">
+          <p className="text-sm text-gray-700">
             <span className="mr-2">{provider.icon}</span>
             <span className="font-semibold">{provider.name} - What you&apos;ll see</span>
           </p>
         </div>
 
-        <div className="relative w-full bg-gradient-to-b from-slate-100 to-slate-50" style={{ height: '500px' }}>
+        <div className="relative w-full bg-white" style={{ height: '500px' }}>
           <div className="flex flex-col h-full">
             {/* Mock Header */}
             <div className={`${provider.headerBg} text-white border-b border-slate-200 p-4`}>
@@ -54,8 +54,8 @@ export const EmbeddedPreview: React.FC<EmbeddedPreviewProps> = ({
 
               {/* AI Response */}
               <div className="flex justify-start">
-                <div className="bg-slate-200 text-slate-900 rounded-lg p-3 max-w-xs">
-                  <p className="text-sm text-slate-600">Thinking...</p>
+                <div className="bg-gray-200 text-gray-900 rounded-lg p-3 max-w-xs">
+                  <p className="text-sm text-gray-700">Thinking...</p>
                   <div className="mt-2 flex gap-1">
                     <div className={`w-2 h-2 ${provider.bubbleColor.replace('bg-', 'bg-')} rounded-full animate-bounce`}></div>
                     <div className={`w-2 h-2 ${provider.bubbleColor.replace('bg-', 'bg-')} rounded-full animate-bounce`} style={{ animationDelay: '0.1s' }}></div>
@@ -66,12 +66,12 @@ export const EmbeddedPreview: React.FC<EmbeddedPreviewProps> = ({
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-slate-200 bg-white p-4">
+            <div className="border-t-2 border-gray-300 bg-white p-4">
               <div className="flex gap-2">
                 <input
                   type="text"
                   placeholder="Message..."
-                  className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 border-2 border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
                   disabled
                 />
                 <button className={`px-4 py-2 ${provider.color.replace('from-', 'from-').replace('to-', 'to-')} bg-gradient-to-r text-white rounded-lg text-sm font-medium opacity-60 cursor-not-allowed`}>
@@ -84,10 +84,10 @@ export const EmbeddedPreview: React.FC<EmbeddedPreviewProps> = ({
       </div>
 
       {/* URL Display */}
-      <div className="mt-4 p-4 rounded-lg bg-slate-700 bg-opacity-50 backdrop-blur border border-slate-600">
-        <p className="text-xs text-slate-400 mb-2">Generated URL will open:</p>
-        <p className="text-sm text-slate-300 break-all">
-          <code className="text-blue-300">{url}</code>
+      <div className="mt-4 p-4 rounded-lg bg-gray-50 border-2 border-gray-300">
+        <p className="text-xs text-gray-600 mb-2">Generated URL will open:</p>
+        <p className="text-sm text-gray-700 break-all">
+          <code className="text-blue-600">{url}</code>
         </p>
       </div>
 
