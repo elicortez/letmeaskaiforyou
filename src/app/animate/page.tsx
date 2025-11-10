@@ -113,17 +113,30 @@ const AnimatePageContent = () => {
 
       {/* Top Redirect Banner */}
       {showRedirect && (
-        <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 shadow-lg animate-slide-in">
-          <div className="max-w-2xl mx-auto px-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 rounded-full bg-white animate-bounce"></div>
-                <div className="w-2 h-2 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-2 h-2 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              </div>
-              <span className="font-semibold">Redirecting in {redirectCountdown}s...</span>
+        <div className="fixed top-0 left-0 right-0 bg-white border-b-2 border-gray-300 py-4 shadow-sm">
+          <div className="max-w-2xl mx-auto px-4 flex items-center justify-around gap-8">
+            <div className={`flex items-center gap-3 px-4 py-2 rounded-lg ${currentStep === 'typing' ? 'bg-blue-100 text-blue-600 font-bold animate-strong-pulse' : 'text-gray-500'}`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${currentStep === 'typing' ? 'bg-blue-600 text-white' : 'bg-gray-300'}`}>1</div>
+              <span className="text-lg">Type your prompt</span>
             </div>
-            <img src={provider.logo} alt={provider.name} className="h-8 w-8 object-contain" />
+            <div className={`flex items-center gap-3 px-4 py-2 rounded-lg ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-100 text-green-600 font-bold animate-strong-pulse' : 'text-gray-500'}`}>
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-bold ${currentStep === 'clicking' || currentStep === 'redirecting' ? 'bg-green-600 text-white' : 'bg-gray-300'}`}>2</div>
+              <span className="text-lg">{provider ? `Go to ${provider.name}` : 'Go to AI'}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dramatic Message Box During Redirect */}
+      {showRedirect && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-md text-center animate-slide-up">
+            <div className="mb-6">
+              <img src={provider.logo} alt={provider.name} className="w-24 h-24 object-contain mx-auto" />
+            </div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">See, it's not that hard!</h2>
+            <p className="text-lg text-gray-600 mb-8">Just type your question and let the AI do the magic ✨</p>
+            <p className="text-sm text-gray-500">Redirecting in {redirectCountdown}s...</p>
           </div>
         </div>
       )}
