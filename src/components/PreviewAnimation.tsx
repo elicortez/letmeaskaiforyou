@@ -69,47 +69,21 @@ export const PreviewAnimation: React.FC<PreviewAnimationProps> = ({
         </div>
 
         {/* Search input simulation */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-white border-2 border-gray-300">
-            <span className="text-2xl">{provider.icon}</span>
-            <div className="flex-1">
-              <div className="text-sm text-gray-600 mb-2">Searching {provider.name}...</div>
-              <div className="typing-container">
-                <span className="text-lg font-semibold text-gray-900">
-                  {displayedText}
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-white border-2 border-gray-300">
+          <span className="text-2xl">{provider.icon}</span>
+          <div className="flex-1">
+            <div className="text-sm text-gray-600 mb-2">Searching {provider.name}...</div>
+            <div className="typing-container">
+              <span className="text-lg font-semibold text-gray-900">
+                {displayedText}
+              </span>
+              {cursorVisible && (
+                <span className="animate-pulse border-r-2 border-blue-500 ml-1">
+                  &nbsp;
                 </span>
-                {cursorVisible && (
-                  <span className="animate-pulse border-r-2 border-blue-500 ml-1">
-                    &nbsp;
-                  </span>
-                )}
-              </div>
+              )}
             </div>
           </div>
-
-          {/* Simulated search results preview */}
-          {displayedText.length > query.length * 0.5 && (
-            <div className="animate-fade-in space-y-3 mt-4">
-              <div className="p-3 rounded bg-white border-l-4 border-blue-500 shadow-sm">
-                <div className="text-sm text-gray-800 truncate font-semibold">
-                  First result for: &quot;{query}&quot;
-                </div>
-                <div className="text-xs text-gray-600 mt-1">relevance.example.com</div>
-              </div>
-              <div className="p-3 rounded bg-white border-l-4 border-gray-300 shadow-sm">
-                <div className="text-sm text-gray-800 truncate font-semibold">
-                  Second result...
-                </div>
-                <div className="text-xs text-gray-600 mt-1">result.example.com</div>
-              </div>
-              <div className="p-3 rounded bg-white border-l-4 border-gray-300 shadow-sm">
-                <div className="text-sm text-gray-800 truncate font-semibold">
-                  Third result...
-                </div>
-                <div className="text-xs text-gray-600 mt-1">information.example.com</div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

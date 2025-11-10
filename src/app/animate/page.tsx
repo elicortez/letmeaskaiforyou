@@ -12,7 +12,6 @@ const AnimatePageContent = () => {
   
   const [provider, setProvider] = useState<AIProvider | null>(null);
   const [displayedText, setDisplayedText] = useState('');
-  const [cursorVisible, setCursorVisible] = useState(true);
   const [animationComplete, setAnimationComplete] = useState(false);
   const [showRedirect, setShowRedirect] = useState(false);
   const [redirectCountdown, setRedirectCountdown] = useState(3);
@@ -38,25 +37,18 @@ const AnimatePageContent = () => {
         index++;
       } else {
         clearInterval(typingInterval);
+        // Wait 3 seconds after finishing typing before showing redirect
         setTimeout(() => {
           setAnimationComplete(true);
           setTimeout(() => {
             setShowRedirect(true);
-          }, 800);
+          }, 3000);
         }, 300);
       }
     }, typingSpeed);
 
     return () => clearInterval(typingInterval);
   }, [query, provider]);
-
-  // Cursor blink
-  useEffect(() => {
-    const blinkInterval = setInterval(() => {
-      setCursorVisible((prev) => !prev);
-    }, 750);
-    return () => clearInterval(blinkInterval);
-  }, []);
 
   // Redirect countdown
   useEffect(() => {
@@ -85,7 +77,24 @@ const AnimatePageContent = () => {
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
+      {/* Top Redirect Banner */}
+      {showRedirect && (
+        <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 shadow-lg animate-slide-in">
+          <div className="max-w-2xl mx-auto px-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce"></div>
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                <div className="w-2 h-2 rounded-full bg-white animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              </div>
+              <span className="font-semibold">Redirecting in {redirectCountdown}s...</span>
+            </div>
+            <span className="text-sm opacity-90">🚀 Going to {provider.name}</span>
+          </div>
+        </div>
+      )}
+
+      <div className={`w-full max-w-2xl ${showRedirect ? 'mt-32' : ''}`}>
         {/* Main Animation Container */}
         <div className="mb-6 p-6 rounded-xl bg-gray-50 border-2 border-gray-300 shadow-lg">
           {/* Browser URL bar */}
@@ -109,17 +118,13 @@ const AnimatePageContent = () => {
               </div>
             </div>
 
-            {/* Search Input Simulation */}
+            {/* Search Input Simulation with Moving Cursor */}
             <div className="flex items-center gap-4 p-6 rounded-2xl bg-white border-2 border-gray-300 shadow-md">
-              <div className="flex-1">
-                <div className="typing-container">
-                  <span className="text-2xl font-bold text-gray-900">
-                    {displayedText}
-                  </span>
-                  {!animationComplete && cursorVisible && (
-                    <span className="animate-pulse border-r-2 border-blue-500 ml-1">
-                      &nbsp;
-                    </span>
+              <div className="flex-1 relative">
+                <div className="typing-container text-2xl font-bold text-gray-900 min-h-8">
+                  {displayedText}
+                  {!animationComplete && (
+                    <span className="inline-block w-1 h-8 bg-blue-500 ml-1 align-middle animate-pulse"></span>
                   )}
                 </div>
               </div>

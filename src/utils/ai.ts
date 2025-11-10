@@ -17,9 +17,9 @@ export const AI_PROVIDERS: Record<string, AIProvider> = {
     id: 'chatgpt',
     name: 'ChatGPT',
     icon: '🤖',
-    color: 'from-slate-700 to-slate-900',
-    headerBg: 'bg-gradient-to-r from-slate-900 to-slate-800',
-    bubbleColor: 'bg-slate-500',
+    color: 'from-gray-700 to-gray-900',
+    headerBg: 'bg-gradient-to-r from-gray-800 to-gray-900',
+    bubbleColor: 'bg-gray-600',
     generateUrl: (query: string) => {
       const encodedQuery = encodeURIComponent(query);
       return `https://chatgpt.com/?prompt=${encodedQuery}`;
