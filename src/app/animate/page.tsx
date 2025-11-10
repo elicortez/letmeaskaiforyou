@@ -120,63 +120,37 @@ const AnimatePageContent = () => {
 
             {/* Search Input Simulation with Moving Cursor */}
             <div className="flex items-center gap-4 p-6 rounded-2xl bg-white border-2 border-gray-300 shadow-md">
-              <div className="flex-1 relative">
-                <div className="typing-container text-2xl font-bold text-gray-900 min-h-8">
-                  {displayedText}
+              <div className="flex-1">
+                <div className="text-2xl font-bold text-gray-900 leading-tight">
+                  <span>{displayedText}</span>
                   {!animationComplete && (
-                    <span className="inline-block w-1 h-8 bg-blue-500 ml-1 align-middle animate-pulse"></span>
+                    <span className="animate-pulse text-blue-500">|</span>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Results appearing */}
-            {displayedText.length > query.length * 0.4 && (
-              <div className="animate-fade-in space-y-3">
-                <div className="p-4 rounded-lg bg-white border-l-4 border-blue-500 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="text-sm font-semibold text-gray-900">
-                    {query}
-                  </div>
-                  <div className="text-xs text-gray-600 mt-2">relevance.result.com</div>
-                </div>
-
-                <div className="p-4 rounded-lg bg-white border-l-4 border-gray-400 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="text-sm font-semibold text-gray-900">
-                    More information about {query.split(' ')[0]}...
-                  </div>
-                  <div className="text-xs text-gray-600 mt-2">information.example.com</div>
-                </div>
-
-                <div className="p-4 rounded-lg bg-white border-l-4 border-gray-400 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="text-sm font-semibold text-gray-900">
-                    Related searches
-                  </div>
-                  <div className="text-xs text-gray-600 mt-2">suggestions.example.com</div>
+            {/* Checkmark Animation */}
+            {animationComplete && (
+              <div className="mt-8 flex items-center justify-center">
+                <div className="animate-bounce">
+                  <svg
+                    className="w-12 h-12 text-green-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={3}
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
                 </div>
               </div>
             )}
           </div>
-
-          {/* Checkmark Animation */}
-          {animationComplete && (
-            <div className="mt-8 flex items-center justify-center">
-              <div className="animate-bounce">
-                <svg
-                  className="w-12 h-12 text-green-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={3}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Redirect Message */}
