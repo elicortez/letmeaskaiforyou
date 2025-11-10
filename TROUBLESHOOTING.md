@@ -8,16 +8,17 @@
 
 **Problem**: The typing animation doesn't match your preference.
 
-**Solution**: Edit the typing speed in `src/components/PreviewAnimation.tsx`:
+**Solution**: Edit the typing speed in `src/app/animate/page.tsx`:
 
 ```typescript
-// Line 23 - adjust the value (milliseconds per character)
-const typingSpeed = 120; // Increase for slower, decrease for faster
+// Line ~38 - adjust the typingSpeed value (milliseconds per character)
+const typingSpeed = 200; // Current default (slower, easier to read)
+// Adjust values:
+// 50ms = Very fast (one character per 50 milliseconds)
+// 120ms = Faster (original speed)
+// 200ms = Current default (slower for readability)
+// 500ms = Very slow (for emphasis)
 ```
-
-- `50ms` - Very fast (one character per 50 milliseconds)
-- `120ms` - Default (comfortable reading speed)
-- `200ms` - Very slow (for emphasis)
 
 #### Animation stutters or has jank
 
@@ -41,6 +42,28 @@ const typingSpeed = 120; // Increase for slower, decrease for faster
 4. Try a different browser
 
 ---
+
+### 🖱️ Cursor Animation Issues
+
+#### Cursor is not moving smoothly
+
+**Problem**: Mouse cursor animation appears choppy or doesn't animate.
+
+**Solution**:
+1. Check browser performance (open DevTools > Performance tab)
+2. Close other applications to free resources
+3. Try a different browser (Chrome usually best for animations)
+4. Clear browser cache and hard refresh
+
+#### Cursor movement positions are wrong
+
+**Problem**: Cursor doesn't move to the correct input or button location.
+
+**Solution**: Cursor positions are calibrated for standard screen layouts. If incorrect:
+1. Try resizing browser window
+2. Check browser zoom level (should be 100%)
+3. Clear browser cache: `Ctrl+Shift+Delete`
+4. Report issue on GitHub with your screen resolution
 
 ### 🔗 URL and Link Issues
 
@@ -93,34 +116,23 @@ The AI services automatically decode these. This is not a bug.
 
 #### Preview doesn't show
 
-**Problem**: "Show Preview" button doesn't display the mock interface.
+**Problem**: "Preview Animation" button doesn't display the iframe preview.
 
 **Solution**:
 1. Make sure animation has completed first
-2. Click "Show Preview" button (not "Go to AI")
-3. Wait 1-2 seconds for the preview to render
+2. Click "Preview Animation" button (not "Go to AI")
+3. Wait 1-2 seconds for the preview iframe to render
 4. Check browser console for JavaScript errors: `F12` > Console
+5. Ensure JavaScript is enabled
 
-#### Preview looks different on mobile
+#### Redirect happens in preview iframe
 
-**Problem**: Preview layout doesn't match on phone/tablet.
+**Problem**: Animation redirects even when previewing in iframe.
 
-**Solution**: This is normal - preview adapts to screen size:
-- Mobile views are narrower
-- Text wraps differently
-- Buttons stack vertically
-
-This is intentional responsive design.
-
-#### Preview doesn't show for all providers
-
-**Problem**: Some AI providers don't display preview.
-
-**Solution**: All three providers should show previews:
-- If not showing, refresh the page
-- Clear browser cache
-- Try a different browser
-- Check JavaScript is enabled
+**Solution**: This should NOT happen - the iframe detection prevents redirects:
+1. Refresh page and try again
+2. Check URL has `iframe=true` parameter
+3. If still redirecting, report on GitHub
 
 ---
 
@@ -148,14 +160,15 @@ This is intentional responsive design.
 2. Check operating system zoom settings
 3. Zoom in/out as needed: `Ctrl+Plus/Minus` or `Cmd+Plus/Minus`
 
-#### Dark mode doesn't work / Light mode shows
+#### Text is not centered on buttons
 
-**Problem**: App displays in wrong theme.
+**Problem**: Button text appears left-aligned instead of centered.
 
-**Solution**: App uses a fixed dark theme (dark mode always on):
-1. This is intentional design choice
-2. No light/dark mode toggle yet (planned feature)
-3. If you prefer light mode, open a [feature request](https://github.com/elicortez/letmeaskaiforyou/issues)
+**Solution**: This is a display issue:
+1. Clear browser cache and hard refresh: `Ctrl+Shift+R`
+2. Update browser to latest version
+3. Try different browser
+4. If persistent, report on GitHub
 
 ---
 

@@ -25,9 +25,9 @@ Perfect for:
 - **Google Gemini** - Beautiful Gemini-themed interface
 
 ### 🎬 Realistic Animations
-- **Typing animation** - Character-by-character typing simulation
-- **Cursor blinking** - Authentic blinking cursor effect
-- **Progressive results** - Simulated search results appearing as you type
+- **Typing animation** - Character-by-character typing simulation (200ms per character)
+- **Cursor movement** - Mouse cursor animates from input field to button
+- **Step indicators** - Two-step progress tracker: "Type your prompt" → "Go to the AI"
 - **Smooth transitions** - Polished fade-in and slide-in effects
 
 ### 🔗 URL Shortening
@@ -36,10 +36,10 @@ Perfect for:
 - Shareable links that auto-play animations
 
 ### 👀 Interactive Previews
-- Mock AI interface showing exactly what users will see
+- iframe preview showing exactly what users will see
 - Provider-specific color themes
-- Animated "thinking" dots
 - Realistic message bubbles
+- Preview-in-page animations without redirect
 
 ### 📱 Responsive Design
 - Works seamlessly on desktop and mobile
@@ -166,7 +166,7 @@ npm run type-check
 ```mermaid
 sequenceDiagram
     participant User as User
-    participant App as Ask AI For You
+    participant App as Let me Ask AI
     participant AI as AI Service
     
     User->>App: Select AI provider & enter question
@@ -174,7 +174,7 @@ sequenceDiagram
     
     activate App
     App->>App: Generate URL with query params
-    App->>App: Show typing animation
+    App->>App: Play 2-step animation
     App->>App: Generate shortened URL
     deactivate App
     
@@ -184,11 +184,11 @@ sequenceDiagram
     activate App
     Note over App: Friend opens the link
     App->>App: Parse query parameters
-    App->>App: Auto-play typing animation
-    App->>App: Show AI interface preview
+    App->>App: Auto-play animation sequence
+    App->>App: Show iframe preview
     deactivate App
     
-    User->>App: Click "Go to ChatGPT" / "Show Preview"
+    User->>App: Click "Go to ChatGPT" / "Preview Animation"
     App->>AI: Redirect with pre-filled prompt
     AI-->>User: Display AI interface
 ```
@@ -232,43 +232,40 @@ When someone opens this link:
 - ✅ The correct AI provider is pre-selected
 - ✅ They can click to go directly to the AI service
 
-## 🎨 Customization
+### 🎨 Customization
 
-### Adding a New AI Provider
+### Typing Speed
 
-Edit `src/utils/ai.ts`:
+Edit the typing animation speed in `src/app/animate/page.tsx`:
 
 ```typescript
-export const AI_PROVIDERS: Record<string, AIProvider> = {
-  // ... existing providers
-  
-  newai: {
-    id: 'newai',
-    name: 'New AI',
-    icon: '✨',
-    color: 'from-indigo-400 to-indigo-600',
-    headerBg: 'bg-gradient-to-r from-indigo-600 to-indigo-700',
-    bubbleColor: 'bg-indigo-400',
-    generateUrl: (query: string) => {
-      return `https://newai.com/search?q=${encodeURIComponent(query)}`;
-    },
-  },
-};
+const typingSpeed = 200; // milliseconds per character
+// 200ms = current speed (slower, easier to read)
+// 120ms = faster typing
+// 50ms = very fast
 ```
 
-### Styling
+### Cursor Movement Animation
 
-The app uses **Tailwind CSS** for styling. Customize:
-- Colors in `tailwind.config.ts`
-- Global styles in `src/styles/globals.css`
-- Component styles inline in TSX files
+Customize cursor paths in `src/styles/globals.css`:
 
-### Animations
+```css
+@keyframes mouse-move-to-input {
+  0% { left: 10%; top: 5%; }
+  100% { left: 50%; top: 55%; }
+}
 
-Animations are defined in `tailwind.config.ts`. Customize:
-- Typing speed in `PreviewAnimation.tsx` (currently 120ms per character)
-- Animation duration in tailwind config
-- Cursor blink timing
+@keyframes mouse-move-to-button {
+  0% { left: 50%; top: 55%; }
+  100% { left: 50%; top: 88%; }
+}
+```
+
+### Step Indicators
+
+The two steps displayed at the top can be customized in `src/app/animate/page.tsx`:
+- Step 1: "Type your prompt"
+- Step 2: "Go to [AI Name]"
 
 ## 🔄 Data Flow
 

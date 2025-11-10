@@ -179,32 +179,58 @@ sequenceDiagram
 ```mermaid
 sequenceDiagram
     participant User
-    participant HomeContent as HomeContent<br/>State Manager
-    participant Animation as PreviewAnimation
+    participant Page as animate/page.tsx
     participant DOM as Browser DOM
     
-    User->>HomeContent: Click Generate Link
-    HomeContent->>HomeContent: Set showPreview = true
-    HomeContent->>Animation: Pass isActive = true
+    User->>Page: Page loads with query params
+    Page->>Page: Detect isInIframe parameter
     
-    activate Animation
-    Animation->>Animation: Initialize displayedText = ""
-    Animation->>Animation: Start typing interval
+    activate Page
+    Page->>DOM: Show step indicator (2 steps)
+    Page->>DOM: Render input field with text
+    Page->>DOM: Render "Go to [AI]" button
+    deactivate Page
     
+    Page->>Page: Wait 0ms before animation
+    
+    activate Page
+    Note over Page: Step 1: Cursor moves to input (2 seconds)
+    Page->>DOM: Show custom cursor
+    Page->>DOM: Apply mouse-move-to-input animation
+    Page->>DOM: Update step indicator (blue)
+    deactivate Page
+    
+    Page->>Page: Typing starts
+    
+    activate Page
+    Note over Page: Step 1: Type prompt (200ms per char)
     loop For each character
-        Animation->>DOM: Update displayedText
-        DOM->>DOM: Re-render component
-        Animation->>DOM: Update cursor visibility
+        Page->>DOM: Update displayedText
+        Page->>DOM: Re-render typed text
     end
+    deactivate Page
     
-    Animation->>Animation: Complete typing
-    Animation->>HomeContent: Call onAnimationComplete()
-    deactivate Animation
+    Page->>Page: Typing complete
     
-    HomeContent->>HomeContent: Set animationComplete = true
-    HomeContent->>HomeContent: Generate URLs
-    HomeContent->>DOM: Render results section
-    DOM->>User: Display all options
+    activate Page
+    Note over Page: Step 2: Cursor moves to button (2 seconds)
+    Page->>Page: setCurrentStep('clicking')
+    Page->>DOM: Move cursor animation to button
+    Page->>DOM: Update step indicator (green)
+    deactivate Page
+    
+    Page->>Page: Wait 1 second
+    
+    activate Page
+    Note over Page: Optional redirect (if not in iframe)
+    alt isInIframe = true
+        Page->>Page: Do NOT redirect
+    else isInIframe = false
+        Page->>Page: Show countdown (2 seconds)
+        Page->>DOM: Update redirect message
+        Page->>Page: Redirect after countdown
+    end
+    deactivate Page
 ```
 
 ### State Management Flow
@@ -424,8 +450,11 @@ interface AIProvider {
   // Display name
   name: string;
   
-  // Unicode icon/emoji
+  // Unicode icon/emoji (legacy, kept for compatibility)
   icon: string;
+  
+  // Path to logo PNG file
+  logo: string;
   
   // Tailwind gradient class for buttons
   color: string;
