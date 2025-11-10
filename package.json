@@ -1,7 +1,7 @@
 {
   "name": "letmeaskaiforyou",
   "version": "0.1.0",
-  "description": "Ask AI For You - Generate shareable links for ChatGPT, Copilot, and Gemini",
+  "description": "Let me Ask AI for you - Generate shareable links for ChatGPT, Copilot, and Gemini",
   "author": "elicortez",
   "license": "MIT",
   "private": true,

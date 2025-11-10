@@ -9,6 +9,7 @@ const AnimatePageContent = () => {
   const searchParams = useSearchParams();
   const query = searchParams?.get('q') || '';
   const providerId = searchParams?.get('ai') || 'chatgpt';
+  const isInIframe = searchParams?.get('iframe') === 'true';
   
   const [provider, setProvider] = useState<AIProvider | null>(null);
   const [displayedText, setDisplayedText] = useState('');
@@ -62,7 +63,7 @@ const AnimatePageContent = () => {
 
   // Redirect countdown
   useEffect(() => {
-    if (!showRedirect) return;
+    if (!showRedirect || isInIframe) return;
 
     if (redirectCountdown === 0) {
       const url = provider?.generateUrl(query);
@@ -75,7 +76,7 @@ const AnimatePageContent = () => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [showRedirect, redirectCountdown, provider, query]);
+  }, [showRedirect, redirectCountdown, provider, query, isInIframe]);
 
   if (!provider) {
     return (
@@ -193,43 +194,9 @@ const AnimatePageContent = () => {
           </div>
         </div>
 
-        {/* Redirect Message */}
-        {showRedirect && (
-          <div className="text-center animate-slide-in">
-            <div className="mb-4 p-6 rounded-xl bg-blue-50 border-2 border-blue-300 shadow-lg">
-              <h2 className="text-2xl font-bold text-blue-900 mb-2">
-                🚀 Step 3: Redirecting...
-              </h2>
-              <p className="text-blue-700 mb-4">
-                Redirecting to {provider.name}...
-              </p>
-              <div className="flex justify-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-blue-500 animate-bounce"></div>
-                <div className="w-3 h-3 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-3 h-3 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              </div>
-              <p className="text-blue-600 text-sm mt-4">
-                Redirecting in {redirectCountdown}s...
-              </p>
-            </div>
-
-            {/* Manual Redirect Button */}
-            <button
-              onClick={() => {
-                const url = provider.generateUrl(query);
-                window.location.href = url;
-              }}
-              className={`w-full py-4 px-6 rounded-xl bg-gradient-to-r ${provider.color} text-white font-bold text-lg hover:shadow-lg transition-all transform hover:scale-105 flex items-center justify-center gap-3`}
-            >
-              <img src={provider.logo} alt={provider.name} className="w-8 h-8 object-contain" />
-              Click here if not redirected
-            </button>
-          </div>
-        )}
-
         {/* Footer */}
         <div className="text-center text-sm text-gray-600 mt-8">
-          <p>Ask AI For You</p>
+          <p>Let me Ask AI for you</p>
         </div>
       </div>
     </div>

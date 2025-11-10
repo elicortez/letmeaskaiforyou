@@ -64,7 +64,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
         {/* Header */}
         <div className="text-center space-y-2 mb-12">
           <h1 className="text-5xl font-bold text-gray-900">
-            Ask AI For You
+            Let me Ask AI for you
           </h1>
           <p className="text-gray-600 text-lg">
             Generate links to ask ChatGPT, Copilot, or Gemini anything
@@ -73,18 +73,18 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
         {/* AI Provider Selection */}
         {!showPreview && (
-          <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-3 gap-8 mb-8">
             {Object.values(AI_PROVIDERS).map((provider) => (
               <button
                 key={provider.id}
                 onClick={() => setSelectedProvider(provider)}
-                className={`py-6 px-4 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center ${
+                className={`py-1 px-2 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center ${
                   selectedProvider.id === provider.id
                     ? `bg-gradient-to-r ${provider.color} shadow-lg ring-4 ring-offset-2 ring-blue-400`
                     : 'bg-gray-100 hover:bg-gray-200 border-2 border-gray-300'
                 }`}
               >
-                <img src={provider.logo} alt={provider.name} className="w-14 h-14 object-contain" />
+                <img src={provider.logo} alt={provider.name} className="w-20 h-20 object-contain" />
               </button>
             ))}
           </div>
@@ -167,7 +167,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 className={`flex-1 py-3 px-6 rounded-lg bg-gradient-to-r ${selectedProvider.color} hover:shadow-lg flex items-center justify-center gap-2 text-black font-bold text-lg transition-all border-2 border-black shadow-md`}
               >
                 <img src={selectedProvider.logo} alt={selectedProvider.name} className="w-6 h-6 object-contain" />
-                {showEmbedded ? 'Hide' : 'Show'}
+                {showEmbedded ? 'Hide Animation' : 'Preview Animation'}
               </button>
 
               <a
@@ -183,83 +183,13 @@ export const HomeContent: React.FC<HomeContentProps> = ({
 
             {/* Embedded Preview - Full Animation */}
             {showEmbedded && (
-              <div className="mt-8 p-8 rounded-xl bg-gray-50 border-2 border-gray-300 shadow-lg animate-slide-in">
-                {/* Browser URL bar */}
-                <div className="mb-6 p-4 rounded-lg bg-gray-200 text-sm text-gray-700 font-mono border border-gray-400 overflow-x-auto">
-                  <span className="text-gray-500">📍 </span>
-                  {selectedProvider.id === 'chatgpt'
-                    ? `chatgpt.com/?prompt=${encodeURIComponent(query)}`
-                    : selectedProvider.id === 'copilot'
-                    ? `bing.com/chat?q=${encodeURIComponent(query)}`
-                    : `gemini.google.com/?prompt=${encodeURIComponent(query)}`}
-                </div>
-
-                {/* Main Search/Input Area */}
-                <div className="space-y-6">
-                  {/* Provider Header */}
-                  <div className="flex items-center gap-4">
-                    <img src={selectedProvider.logo} alt={selectedProvider.name} className="w-20 h-20 object-contain" />
-                    <div>
-                      <p className="text-gray-600 text-lg">Ready to help</p>
-                    </div>
-                  </div>
-
-                  {/* Search Input Simulation with Typing Animation */}
-                  <div className="flex items-center gap-4 p-6 rounded-2xl bg-white border-2 border-gray-300 shadow-md">
-                    <div className="flex-1">
-                      <div className="text-2xl font-bold text-gray-900 leading-tight">
-                        <span>{query}</span>
-                        <span className="animate-pulse text-blue-500">|</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Step 1 Label */}
-                  <div className="text-center mt-4 text-lg font-semibold text-blue-600 animate-pulse">
-                    ✏️ Step 1: Type your question...
-                  </div>
-
-                  {/* Search Button */}
-                  <button className="w-full mt-6 py-4 px-6 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-lg hover:shadow-lg">
-                    Search
-                  </button>
-
-                  {/* Step 2 Label */}
-                  <div className="text-center mt-4 text-lg font-semibold text-green-600 animate-pulse">
-                    🖱️ Step 2: Click the search button...
-                  </div>
-
-                  {/* Checkmark Animation */}
-                  <div className="mt-8 flex items-center justify-center">
-                    <div className="animate-bounce">
-                      <svg
-                        className="w-12 h-12 text-green-500"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={3}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-
-                  {/* Step 3 Label */}
-                  <div className="text-center mt-4 text-lg font-semibold text-purple-600 animate-pulse">
-                    🚀 Step 3: Redirect!
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="mt-8 text-center p-6 rounded-xl bg-blue-50 border-2 border-blue-300 shadow-lg">
-                  <p className="text-blue-700">
-                    This is what will happen when someone clicks your link!
-                  </p>
-                </div>
+              <div className="mt-8 rounded-xl bg-gray-50 border-2 border-gray-300 shadow-lg overflow-hidden animate-slide-in">
+                <iframe
+                  src={`/animate?q=${encodeURIComponent(query)}&ai=${selectedProvider.id}&iframe=true`}
+                  className="w-full border-none"
+                  style={{ minHeight: '600px', height: 'auto' }}
+                  title="Animation Preview"
+                />
               </div>
             )}
           </div>
