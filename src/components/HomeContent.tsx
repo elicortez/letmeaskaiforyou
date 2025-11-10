@@ -80,7 +80,7 @@ export const HomeContent: React.FC<HomeContentProps> = ({
                 onClick={() => setSelectedProvider(provider)}
                 className={`py-1 px-2 rounded-lg transition-all transform hover:scale-110 flex items-center justify-center ${
                   selectedProvider.id === provider.id
-                    ? `bg-white border-4 border-black`
+                    ? `bg-white border-2 border-black`
                     : 'bg-gray-100 hover:bg-gray-200 border-2 border-gray-300'
                 }`}
               >
